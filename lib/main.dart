@@ -25,8 +25,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _restTime = 300;
-  int _workTime = 1500;
+  int _brakeTime = 300; // 5分
+  int _workTime = 1500; // 25分
   int _current = 1500;
   bool _isWorkTime = false;
   bool _isStart = true;
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
               // 時間表示
               Container(
                 child: Text(
-                  timerLogic(),
+                  formatTime(),
                   style: TextStyle(fontSize: 50),
                 ),
               ),
@@ -94,7 +94,6 @@ class _MyHomePageState extends State<MyHomePage> {
                               setState(() {
                                 resetTimer();
                               });
-                              timerLogic();
                             },
                     ),
                   ],
@@ -121,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
           _isWorkTime = false;
           _titleText = "ワークタイム";
         } else {
-          _current = _restTime;
+          _current = _brakeTime;
           _isWorkTime = true;
           _titleText = "ブレイクタイム";
         }
@@ -133,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  String timerLogic() {
+  String formatTime() {
     final minutes = (_current / 60).floor().toString().padLeft(2, '0');
     final seconds = (_current % 60).floor().toString().padLeft(2, '0');
     return "$minutes:$seconds";
